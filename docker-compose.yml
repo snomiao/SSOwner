@@ -1,0 +1,25 @@
+services:
+  ssowner-dev:
+    restart: always
+    # image: oven/bun
+    # command: sh -c "bun i && bunx prisma generate && bun db:push && bun dev"
+    image: node
+    command: sh -c "npm i -g bun && bun i && bunx prisma generate && bun db:push && bun dev"
+    working_dir: /home/bun/app
+    volumes:
+      - ./:/home/bun/app
+      - sso_node_modules:/home/bun/app/node_modules
+    env_file:
+      - ./.env.dev.local
+  ssowner:
+    restart: always
+    env_file:
+      - ./.env
+      - ./.env.local
+    environment:
+      PORT: 80
+      AUTH_URL: https://sso.snomiao.dev
+      AUTH_HOST: snomiao.dev
+    build: .
+    volumes:
+      - ./prisma/:/app/prisma/
