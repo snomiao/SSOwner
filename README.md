@@ -8,6 +8,7 @@
 - [ ] Permission Control Table
 - [x] Database with SQLite
 - [ ] Decenterlized DB infra
+- [ ] Screenshots & demos
 
 ```caddyfile
 forward_auth  {
